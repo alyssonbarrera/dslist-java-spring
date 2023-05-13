@@ -15,6 +15,10 @@ public class GameList {
   private Long id;
   private String name;
   
+  public GameList(String name) {
+    this.name = name;
+  }
+
   public GameList() {
   }
 
