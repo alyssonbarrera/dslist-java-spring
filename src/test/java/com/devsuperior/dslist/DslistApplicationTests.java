@@ -55,9 +55,9 @@ class DslistApplicationTests {
     @Test
     public void testGameServiceFindAll() {
         List<Game> games = Arrays.asList(
-            new Game((long) 1, "Game 1", 2023, "action", "netflix", "", "short description", "long description"),
-            new Game((long) 2, "Game 2", 2023, "action", "netflix", "", "short description", "long description"),
-            new Game((long) 3, "Game 3", 2023, "action", "netflix", "", "short description", "long description")
+            new Game((long) 1, "Game 1", 2023, "action", "PC", "", "short description", "long description"),
+            new Game((long) 2, "Game 2", 2023, "action", "PC", "", "short description", "long description"),
+            new Game((long) 3, "Game 3", 2023, "action", "PC", "", "short description", "long description")
         );
 
         gameRepository.saveAll(games);
@@ -75,7 +75,7 @@ class DslistApplicationTests {
 
     @Test
     public void testGameServiceFindById() {
-        Game game = new Game((long) 1, "Game 1", 2023, "action", "netflix", "", "short description", "long description");
+        Game game = new Game((long) 1, "Game 1", 2023, "action", "PC", "", "short description", "long description");
 
         Game savedGame = gameRepository.save(game);
         
@@ -88,9 +88,9 @@ class DslistApplicationTests {
     @Test
     public void testGameServiceFindByList() {
         List<Game> games = Arrays.asList(
-            new Game((long) 1, "Game 1", 2023, "action", "netflix", "", "short description", "long description"),
-            new Game((long) 2, "Game 2", 2023, "action", "netflix", "", "short description", "long description"),
-            new Game((long) 3, "Game 3", 2023, "action", "netflix", "", "short description", "long description")
+            new Game((long) 1, "Game 1", 2023, "action", "PC", "", "short description", "long description"),
+            new Game((long) 2, "Game 2", 2023, "action", "PC", "", "short description", "long description"),
+            new Game((long) 3, "Game 3", 2023, "action", "PC", "", "short description", "long description")
         );
             
         List<Game> savedGames = gameRepository.saveAll(games);
