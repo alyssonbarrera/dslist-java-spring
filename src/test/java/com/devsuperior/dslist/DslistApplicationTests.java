@@ -1,7 +1,5 @@
 package com.devsuperior.dslist;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Arrays;
 
@@ -9,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dslist.dto.GameDTO;
 import com.devsuperior.dslist.entities.Game;
@@ -24,6 +22,8 @@ import com.devsuperior.dslist.services.GameListService;
 import com.devsuperior.dslist.repositories.GameRepository;
 import com.devsuperior.dslist.repositories.GameListRepository;
 import com.devsuperior.dslist.repositories.BelongingRepository;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -64,13 +64,13 @@ class DslistApplicationTests {
 
         List<GameMinDTO> result = gameService.findAll();
 
-        for (int i = 0; i < result.size(); i++) {
-            System.out.println(result.get(i).getId() + " " + result.get(i).getTitle() + " " + result.get(i));
+        for (GameMinDTO gameMinDTO : result) {
+            System.out.println(gameMinDTO.getId() + " " + gameMinDTO.getTitle() + " " + gameMinDTO);
         }
-        
-        assertTrue(result.size() == 3);
+
+        assertEquals(3, result.size());
 		assertTrue(result.stream().allMatch(game -> game.getId() != null));
-		assertTrue(result.stream().findFirst().get().getTitle().equals("Game 1"));
+        assertEquals("Game 1", result.stream().findFirst().get().getTitle());
     }
 
     @Test
@@ -79,9 +79,9 @@ class DslistApplicationTests {
 
         Game savedGame = gameRepository.save(game);
         
-        GameDTO result = gameService.findById((long) savedGame.getId()); 
+        GameDTO result = gameService.findById((long) savedGame.getId());
 
-        assertTrue(result.getTitle().equals("Game 1"));
+        assertEquals("Game 1", result.getTitle());
         Assertions.assertThat(result).usingRecursiveComparison().isEqualTo(new GameDTO(savedGame));
     }
 
@@ -106,8 +106,8 @@ class DslistApplicationTests {
 
         List<GameMinDTO> result = gameService.findByList((long) savedGameList.getId());
 
-        assertTrue(result.size() == 3);
-        assertTrue(result.stream().findFirst().get().getTitle().equals("Game 1"));
+        assertEquals(3, result.size());
+        assertEquals("Game 1", result.stream().findFirst().get().getTitle());
     }
 
     @Test
@@ -118,8 +118,8 @@ class DslistApplicationTests {
 
         List<GameListDTO> result = gameListService.findAll();
 
-        assertTrue(result.size() == 1);
-        assertTrue(result.stream().findFirst().get().getId() == savedGameList.getId());
-        assertTrue(result.stream().findFirst().get().getName().equals("Game List 1"));
+        assertEquals(1, result.size());
+        assertSame(result.stream().findFirst().get().getId(), savedGameList.getId());
+        assertEquals("Game List 1", result.stream().findFirst().get().getName());
     }
 }
